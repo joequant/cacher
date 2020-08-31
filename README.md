@@ -8,5 +8,5 @@ verdaccio - caches npm
 To run the cacher:
 Edit proxy.sh with location of cacher
 
-docker-compose up
+docker-compose up  or podman-compose up
 source proxy.sh
