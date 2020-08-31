@@ -31,7 +31,6 @@ dnf --installroot="$rootfsDir" \
     --nodocs --allowerasing \
     --releasever="$releasever" \
     --nogpgcheck \
-    --refresh \
     install \
     squid \
     openssl \
