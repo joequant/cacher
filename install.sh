@@ -42,6 +42,7 @@ dnf --installroot="$rootfsDir" \
     procps-ng
 
 rm -f $rootfsDir/etc/yum.repos.d/cauldron*.repo
+rm -f $rootfsDir/etc/yum.repos.d/mageia*.repo
 ls $rootfsDir/etc/yum.repos.d
 
 dnf --installroot="$rootfsDir" \

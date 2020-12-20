@@ -28,7 +28,8 @@ if [ ! -d /var/spool/devpi ]; then
     touch /var/log/devpi-server.log
     devpi-init --serverdir /var/spool/devpi
 fi
-chmod a+rw /var/log/devpi-server.log
+chown nobody /var/log/devpi-server.log
+chmod ug+rw /var/log/devpi-server.log
 chmod -R a+rw /var/spool/devpi
 su nobody -c "devpi-server --serverdir /var/spool/devpi >> /var/log/devpi-server.log 2>&1 &"
 
@@ -36,7 +37,8 @@ if [ ! -d /var/spool/git ]; then
     mkdir -p /var/spool/git
     touch /var/log/git-cache-http-server.log
 fi
-chmod a+rw /var/log/git-cache-http-server.log
+chown nobody /var/log/git-cache-http-server.log
+chmod ug+rw /var/log/git-cache-http-server.log
 chmod -R a+rw /var/spool/git
 
 mkdir -p /var/spool/verdaccio
@@ -44,7 +46,11 @@ chmod -R a+rw /var/spool/verdaccio
 pushd /var/spool/verdaccio
 mkdir -p /var/spool/verdaccio/storage
 mkdir -p /var/spool/verdaccio/plugins
-chmod a+rw /var/log/verdaccio.log
+if [ ! -f /var/log/verdaccio.log ] ; then
+    touch /var/log/verdaccio.log
+fi
+chown nobody /var/log/verdaccio.log
+chmod ug+rw /var/log/verdaccio.log
 su nobody -c "verdaccio -c /etc/verdaccio.yaml >> /var/log/verdaccio.log 2>&1 &"
 popd
 
