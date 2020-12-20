@@ -18,13 +18,13 @@ if [ -z $buildarch ]; then
 	buildarch="$(rpm --eval '%{_target_cpu}')"
 fi
 
-. $scriptDir/proxy.sh
+#. $scriptDir/proxy.sh
 
 reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$buildarch"
 
 cp $scriptDir/startup.sh $rootfsDir/sbin/startup.sh
 chmod a+rwx $rootfsDir/sbin/startup.sh
-(
+
 dnf --installroot="$rootfsDir" \
     --forcearch="$buildarch" \
     --setopt=install_weak_deps=False --best -v -y \
@@ -41,6 +41,9 @@ dnf --installroot="$rootfsDir" \
     git \
     procps-ng
 
+rm -f $rootfsDir/etc/yum.repos.d/cauldron*.repo
+ls $rootfsDir/etc/yum.repos.d
+
 dnf --installroot="$rootfsDir" \
     --forcearch="$buildarch" \
     --setopt=install_weak_deps=False --best -v -y \
@@ -49,7 +52,6 @@ dnf --installroot="$rootfsDir" \
     --nogpgcheck \
     install \
     distcc-server
-)
 
 rpm --erase --nodeps --root $rootfsDir systemd \
     `rpm -qa --root $rootfsDir | grep vulkan` \
@@ -101,6 +103,6 @@ rm -rf usr/lib/gcc/*/*/32
 popd
 
 buildah config --cmd "/sbin/startup.sh" $container
-buildah commit --format docker --rm $container $name
+buildah commit --squash --format docker --rm $container $name
 buildah push $name:latest docker-daemon:$name:latest
 pump --shutdown
