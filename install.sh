@@ -62,7 +62,8 @@ rpm --erase --nodeps --root $rootfsDir systemd \
     `rpm -qa --root $rootfsDir | grep adwaita`
 
 buildah run $container -- pip3 install devpi-server --prefix /usr
-buildah run $container -- npm install -g git-cache-http-server verdaccio
+buildah run $container -- npm install -g git-cache-http-server
+buildah run $container -- npm install -g verdaccio
 buildah copy $container $scriptDir/squid.conf /etc/squid
 buildah copy $container $scriptDir/storeid.conf /etc/squid
 buildah copy $container $scriptDir/distccd-cmdlist /etc/sysconfig
