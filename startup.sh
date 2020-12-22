@@ -42,6 +42,7 @@ chmod ug+rw /var/log/git-cache-http-server.log
 chmod -R a+rw /var/spool/git
 
 mkdir -p /var/spool/verdaccio
+chown -R nobody /var/spool/verdaccio
 chmod -R a+rw /var/spool/verdaccio
 pushd /var/spool/verdaccio
 mkdir -p /var/spool/verdaccio/storage
