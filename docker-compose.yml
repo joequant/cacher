@@ -11,7 +11,7 @@ services:
      volumes:
        - spool:/var/spool
        - log:/var/log
-
+     privileged: true
 volumes:
       spool:
       log:
