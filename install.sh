@@ -39,7 +39,8 @@ dnf --installroot="$rootfsDir" \
     ccache \
     python3-pip \
     git \
-    procps-ng
+    procps-ng \
+    ksh
 
 rm -f $rootfsDir/etc/yum.repos.d/cauldron*.repo
 rm -f $rootfsDir/etc/yum.repos.d/mageia*.repo
@@ -67,6 +68,10 @@ buildah run $container -- npm install -g verdaccio
 buildah copy $container $scriptDir/squid.conf /etc/squid
 buildah copy $container $scriptDir/storeid.conf /etc/squid
 buildah copy $container $scriptDir/distccd-cmdlist /etc/sysconfig
+
+#use bash to work around test error
+buildah run $container -- rm -f /bin/sh
+buildah run $container -- ln -s /bin/ksh /bin/sh
 
 chmod a+r -R $rootfsDir/etc
 
