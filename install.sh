@@ -18,7 +18,7 @@ if [ -z $buildarch ]; then
 	buildarch="$(rpm --eval '%{_target_cpu}')"
 fi
 
-#. $scriptDir/proxy.sh
+. $scriptDir/proxy.sh
 
 reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$buildarch"
 
@@ -93,7 +93,7 @@ export CCACHE_DIR=/var/spool/ccache
 export PATH=/usr/lib64/ccache/bin:/bin:/sbin
 EOF
 
-rpm --rebuilddb --root $rootfsDir
+#rpm --rebuilddb --root $rootfsDir
 pushd $rootfsDir
 rm -rf var/cache/*
 rm -f lib/*.so lib/*.so.* lib64/*.a lib/*.a lib/*.o
