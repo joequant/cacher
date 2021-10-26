@@ -39,7 +39,8 @@ dnf --installroot="$rootfsDir" \
     ccache \
     python3-pip \
     git \
-    procps-ng
+    procps-ng \
+    clang
 
 dnf --installroot="$rootfsDir" \
     --forcearch="$buildarch" \
