@@ -1,7 +1,8 @@
 {
     "name": "cacher",
     "scripts": {
-	"build": "buildah unshare ./install.sh",
+        "build": "buildah unshare ./install.sh",
+        "prepare": "buildah unshare ./install.sh",
 	"shell": "podman exec -ti cacher_cacher_1 /bin/bash",
 	"up": "nohup podman-compose up >> cacher.log &",
 	"down": "podman-compose down",
