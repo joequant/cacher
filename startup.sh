@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "starting"
-
+set -e
 mkdir -p /var/spool/squid
 chown -R squid:squid /var/spool/squid
 chown -R squid:squid /var/log/squid
@@ -16,7 +16,7 @@ fi
 mkdir -p /var/spool/ccache
 chmod -R a+rwx /var/spool/ccache
 export CCACHE_DIR=/var/spool/ccache
-export PATH=/usr/lib64/ccache/bin:/usr/bin
+export PATH=/usr/lib64/ccache/bin:/usr/bin:/usr/local/bin
 export DISTCC_CMDLIST=/etc/sysconfig/distccd-cmdlist
 
 touch /var/log/distccd.log
