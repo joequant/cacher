@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "starting"
-set -e
+set -e -v
 mkdir -p /var/spool/squid
 chown -R squid:squid /var/spool/squid
 chown -R squid:squid /var/log/squid
