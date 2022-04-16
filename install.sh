@@ -68,6 +68,7 @@ buildah run $container -- npm install -g verdaccio
 buildah copy $container $scriptDir/squid.conf /etc/squid
 buildah copy $container $scriptDir/storeid.conf /etc/squid
 buildah copy $container $scriptDir/distccd-cmdlist /etc/sysconfig
+buildah copy $container $scriptDir/commands.allow.sh /etc/distcc
 
 chmod a+r -R $rootfsDir/etc
 
