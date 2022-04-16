@@ -41,10 +41,6 @@ dnf --installroot="$rootfsDir" \
     git \
     procps-ng
 
-rm -f $rootfsDir/etc/yum.repos.d/cauldron*.repo
-rm -f $rootfsDir/etc/yum.repos.d/mageia*.repo
-ls $rootfsDir/etc/yum.repos.d
-
 dnf --installroot="$rootfsDir" \
     --forcearch="$buildarch" \
     --setopt=install_weak_deps=False --best -v -y \
@@ -53,6 +49,10 @@ dnf --installroot="$rootfsDir" \
     --nogpgcheck \
     install \
     distcc-server
+
+rm -f $rootfsDir/etc/yum.repos.d/cauldron*.repo
+rm -f $rootfsDir/etc/yum.repos.d/mageia*.repo
+ls $rootfsDir/etc/yum.repos.d
 
 rpm --erase --nodeps --root $rootfsDir systemd \
     `rpm -qa --root $rootfsDir | grep vulkan` \
