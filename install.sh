@@ -24,6 +24,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
 
 cp $scriptDir/startup.sh $rootfsDir/sbin/startup.sh
 chmod a+rwx $rootfsDir/sbin/startup.sh
+cp $scriptDir/install-container.sh $scriptDir/proxy.sh $rootfsDir/tmp
 
 dnf --installroot="$rootfsDir" \
     --forcearch="$buildarch" \
@@ -62,9 +63,7 @@ rpm --erase --nodeps --root $rootfsDir systemd \
     `rpm -qa --root $rootfsDir | grep wayland` \
     `rpm -qa --root $rootfsDir | grep adwaita`
 
-buildah run $container -- pip3 install devpi-server --prefix /usr
-buildah run $container -- npm install -g git-cache-http-server
-buildah run $container -- npm install -g verdaccio
+buildah run $container -- /bin/bash /tmp/install-container.sh
 buildah copy $container $scriptDir/squid.conf /etc/squid
 buildah copy $container $scriptDir/storeid.conf /etc/squid
 buildah copy $container $scriptDir/distccd-cmdlist /etc/sysconfig
