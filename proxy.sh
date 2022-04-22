@@ -1,8 +1,14 @@
 # this is the location of the main server from a docker image
-export cache_server=172.17.0.1
-
+export cache_server=${cache_server:-172.17.0.1}
+echo "cache server: ${cache_server}"
 export timeout_exit=0
 timeout 1 bash -c 'cat < /dev/null > /dev/tcp/'$cache_server'/3128' || export timeout_exit=1
+
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+":$PATH"}"
+    fi
+}
 
 if [ $timeout_exit == 0 ] ; then
     echo "running proxy"
@@ -25,13 +31,13 @@ timeout 1 bash -c 'cat < /dev/null > /dev/tcp/$cache_server/3632' || export time
 : '
 if [ $timeout_exit == 0 ] ; then
     echo "running distcc"
-    export PATH=/usr/lib64/distcc:$PATH
+    pathadd "/usr/lib64/distcc"
     export DISTCC_HOSTS="$cache_server"
 fi
 '
 if [ $timeout_exit == 0 ] ; then
     echo "running distcc (pump mode)"
-    export PATH=/usr/lib64/distcc:$PATH
-    export DISTCC_HOSTS='172.17.0.1,cpp,lzo'
+    pathadd "/usr/lib64/distcc"
+    export DISTCC_HOSTS='$cache_server,cpp,lzo'
     eval `pump --startup`
 fi
