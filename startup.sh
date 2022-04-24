@@ -59,4 +59,5 @@ mkdir -p /var/spool/git
 chmod -R a+rw /var/spool/git
 chmod a+rw /var/log/git-cache-http-server.log
 su nobody -c "while :; do git-cache-http-server -c /var/spool/git >> /var/log/git-cache-http-server.log 2>&1 ; done &"
-while :; do sleep 200000; done
+sleep infinity
+
