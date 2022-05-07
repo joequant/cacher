@@ -25,6 +25,7 @@ reposetup="--disablerepo=* --enablerepo=mageia-$buildarch --enablerepo=updates-$
 cp $scriptDir/startup.sh $rootfsDir/sbin/startup.sh
 chmod a+rwx $rootfsDir/sbin/startup.sh
 cp $scriptDir/install-container.sh $scriptDir/proxy.sh $rootfsDir/tmp
+chmod a+x $rootfsDir/tmp/install-container.sh
 
 dnf --installroot="$rootfsDir" \
     --forcearch="$buildarch" \

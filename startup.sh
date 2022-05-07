@@ -23,7 +23,7 @@ touch /var/log/distccd.log
 chmod a+rw /var/log/distccd.log
 /usr/bin/distccd $DISTCCD_ARGS --allow 172.0.0.0/8 --allow 192.168.0.0/16 --allow 127.0.0.1 --allow 10.0.0.0/8 --stats --log-file /var/log/distccd.log
 
-if [ ! -d /var/spool/devpi ]; then
+if [ ! -f /var/spool/devpi/.sqlite ]; then
     mkdir -p /var/spool/devpi
     touch /var/log/devpi-server.log
     devpi-init --serverdir /var/spool/devpi
