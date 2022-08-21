@@ -53,13 +53,7 @@ dnf --installroot="$rootfsDir" \
     install \
     distcc-server
 
-buildah run $container ca-legacy install
-buildah run $container mkdir -p /etc/pki/ca-trust/extracted/openssl \
-        /etc/pki/ca-trust/extracted/pem \
-        /etc/pki/ca-trust/extracted/java \
-        /etc/pki/ca-trust/extracted/edk2
-buildah run $container update-ca-trust
-
+buildah run $container /usr/sbin/install-certs.sh
 
 rm -f $rootfsDir/etc/yum.repos.d/cauldron*.repo
 rm -f $rootfsDir/etc/yum.repos.d/mageia*.repo
