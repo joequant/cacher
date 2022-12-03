@@ -11,6 +11,8 @@ storage: /var/spool/verdaccio/storage
 # path to a directory with plugins to include
 plugins: /var/spool/verdaccio/plugins
 
+listen: 0.0.0.0:4873
+
 web:
   title: Verdaccio
   # comment out to disable gravatar support
