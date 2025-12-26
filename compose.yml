@@ -11,7 +11,10 @@ services:
      volumes:
        - spool:/var/spool
        - log:/var/log
+       - ./hosts:/etc/distcc/hosts
      privileged: true
+     restart:
+        always
 volumes:
       spool:
       log:

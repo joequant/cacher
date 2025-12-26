@@ -71,6 +71,7 @@ buildah copy $container $scriptDir/squid.conf /etc/squid
 buildah copy $container $scriptDir/storeid.conf /etc/squid
 buildah copy $container $scriptDir/distccd-cmdlist /etc/sysconfig
 buildah copy $container $scriptDir/commands.allow.sh /etc/distcc
+buildah copy $container $scriptDir/distcc /etc/default
 
 chmod a+r -R $rootfsDir/etc
 
